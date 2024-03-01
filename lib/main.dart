@@ -9,6 +9,16 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
+import 'package:workmanager/workmanager.dart';
+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) {
+    // Aquí va tu tarea en segundo plano
+    print("Ejecutando tarea en segundo plano");
+    return Future.value(true);
+  });
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
@@ -16,8 +26,10 @@ void main() async {
   await FlutterFlowTheme.initialize();
 
   // Start final custom actions code
-  await actions.callbackDispatcher();
-  await actions.workInit();
+  Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: true,
+  );
   // End final custom actions code
 
   runApp(const MyApp());
